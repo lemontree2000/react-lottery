@@ -8,7 +8,7 @@ import livereload from 'gulp-livereload';
 import plumber from 'gulp-plumber';
 import rename from 'gulp-rename';
 import uglify from 'gulp-uglify';
-import args from '../util/args';
+import args from './util/args.js';
 
 gulp.task('srcipts', () => {
     return gulp.src(['app/js/index.js'])
