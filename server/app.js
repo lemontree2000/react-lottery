@@ -19,6 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 热更新
+app.use(require('connect-livereload')())
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

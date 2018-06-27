@@ -10,7 +10,7 @@ import rename from 'gulp-rename';
 import uglify from 'gulp-uglify';
 import args from './util/args.js';
 
-gulp.task('srcipts', () => {
+gulp.task('scripts', () => {
     return gulp.src(['app/js/index.js'])
         .pipe(plumber({
             errorHandler: () => {
@@ -22,7 +22,7 @@ gulp.task('srcipts', () => {
             module: {
                 loaders: [{
                     test: /\.js$/,
-                    loader: 'babel'
+                    loader: 'babel-loader'
                 }]
             }
         }), null, (err, stats) => {
