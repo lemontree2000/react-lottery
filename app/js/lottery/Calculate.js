@@ -48,7 +48,7 @@ class Calculate {
           if(play[1]-5>0){
             if(active-play[1]>=0){
               arr=new Array(active-5).fill(0);
-              max=Calculate.combine(arr,pl a y[1]-5).length;
+              max=Calculate.combine(arr,play[1]-5).length;
                           
               max=0;
             }
