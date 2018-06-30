@@ -79,12 +79,12 @@ class Calculate {
                 for (let i = 0; i < arrLen; i++) {
                     let newResult = [].concat(result);
                     newResult.push(arr[i]);
-                    if (size == = 1) {
+                    if (size === 1) {
                         allResult.push(newResult);
                     } else {
                         let newArr = [].concat(arr);
                         newArr.splice(0, i + 1);
-                        f(newArr, siz e - 1, newResult):
+                        f(newArr, size - 1, newResult);
                     }
                 }
             }

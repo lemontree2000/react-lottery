@@ -9727,9 +9727,127 @@ exports.default = Timer;
 
 /***/ }),
 /* 333 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: E:/PROJECT/REACT/react-lottery/app/js/lottery/Calculate.js: Unexpected token (82:32)\n\n\u001b[0m \u001b[90m 80 | \u001b[39m                    let newResult \u001b[33m=\u001b[39m []\u001b[33m.\u001b[39mconcat(result)\u001b[33m;\u001b[39m\n \u001b[90m 81 | \u001b[39m                    newResult\u001b[33m.\u001b[39mpush(arr[i])\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 82 | \u001b[39m                    \u001b[36mif\u001b[39m (size \u001b[33m==\u001b[39m \u001b[33m=\u001b[39m \u001b[35m1\u001b[39m) {\n \u001b[90m    | \u001b[39m                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 83 | \u001b[39m                        allResult\u001b[33m.\u001b[39mpush(newResult)\u001b[33m;\u001b[39m\n \u001b[90m 84 | \u001b[39m                    } \u001b[36melse\u001b[39m {\n \u001b[90m 85 | \u001b[39m                        let newArr \u001b[33m=\u001b[39m []\u001b[33m.\u001b[39mconcat(arr)\u001b[33m;\u001b[39m\u001b[0m\n");
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Calculate = function () {
+    function Calculate() {
+        _classCallCheck(this, Calculate);
+    }
+
+    _createClass(Calculate, [{
+        key: 'computeCount',
+
+        /**
+         * 计算注数
+         * @param {number} active 当前选中的号码
+         * @param {string} palyName 当前的注数
+         */
+        value: function computeCount(active, palyName) {
+            var count = 0;
+            var exist = this.playList.has(palyName);
+
+            var arr = new Array(active).fill('0');
+
+            if (exist && palyName.charAt(0) === 'r') {
+                count = Calculate.combine(arr, palyName.split('')[1]);
+            }
+            return count;
+        }
+
+        /**
+         * 奖金范围预测
+         * @param {number} active 当前选中的号码
+         * @param {string} play_name 当前玩法的标志
+         */
+
+    }, {
+        key: 'computeBonus',
+        value: function computeBonus(active, play_name) {
+            var play = play_name.split('');
+            var self = this;
+            var arr = new Array(play[1] * 1).fill(0);
+            var min = void 0,
+                max = void 0;
+            if (play[0] === 'r') {
+                var min_active = 5 - (11 - active);
+                if (min_active > 0) {
+                    if (min_active - play[1] >= 0) {
+                        arr = new Array(min_active).fill(0);
+                        min = Calculate.combine(arr, play[1]).length;
+                    } else {
+                        if (play[1] - 5 > 0 && active - play[1] >= 0) {
+                            arr = new Array(active - 5).fill(0);
+                            min = Calculate.combine(arr, play[1] - 5).length;
+                        } else {
+                            min = active - play[1] > -1 ? 1 : 0;
+                        }
+                    }
+                } else {
+                    min = active - play[1] > -1 ? 1 : 0;
+                }
+
+                var max_active = Math.min(active, 5);
+                if (play[1] - 5 > 0) {
+                    if (active - play[1] >= 0) {
+                        arr = new Array(active - 5).fill(0);
+                        max = Calculate.combine(arr, play[1] - 5).length;
+
+                        max = 0;
+                    }
+                } else if (play[1] - 5 < 0) {
+                    arr = new Array(Math.min(active, 5)).fill(0);
+                    max = Calculate.combine(arr, play[1]).length;
+                } else {
+                    max = 1;
+                }
+            }
+            return [min, max].map(function (item) {
+                return item * self.play_list.get(play_name).bonus;
+            });
+        }
+        /**
+         * 组合运算
+         * @param {Array} arr 参与组合运算的数组
+         * @param {number} size 组合运算的基数
+         */
+
+    }], [{
+        key: 'combine',
+        value: function combine(arr, size) {
+            var allResult = [];
+            (function f(arr, size, result) {
+                var arrLen = arr.length;
+                if (size > arrLen) {
+                    return;
+                }
+                if (size === arrLen) {
+                    allResult.push([].concat(result, arr));
+                } else {
+                    for (var i = 0; i < arrLen; i++) {
+                        var newResult = [].concat(result);
+                        newResult.push(arr[i]);
+                        if (size === 1) {
+                            allResult.push(newResult);
+                        } else {
+                            var newArr = [].concat(arr);
+                            newArr.splice(0, i + 1);
+                            f(newArr, size - 1, newResult);
+                        }
+                    }
+                }
+            })(arr, size, []);
+        }
+    }]);
+
+    return Calculate;
+}();
 
 /***/ })
 /******/ ]);
