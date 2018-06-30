@@ -1,3 +1,2 @@
-import './class/test';
-
-
+import 'babel-polyfill';
+import Lottery from './lottery';
