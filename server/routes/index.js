@@ -1,6 +1,5 @@
 var express = require('express');
 var mockjs = require('mockjs');
-requr
 var router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res, next) {
